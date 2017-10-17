@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
-import java.text.NumberFormat;
 
 
 
@@ -27,25 +26,27 @@ public class MainActivity extends AppCompatActivity {
 
     int numberOfCoffee = 0;
     public void submitOrder(View view) {
-        display(numberOfCoffee);
-        displayPrice(numberOfCoffee * 5);
+        String priceMessage = "That Is $" + calculatePrice();
+        priceMessage = priceMessage + " Thank You!";
+        displayPrice(priceMessage);
+
     }
 
     public void increment(View view) {
         numberOfCoffee = numberOfCoffee + 1;
-        display(numberOfCoffee);
+        displayQuantity(numberOfCoffee);
 
     }
 
     public void decrement(View view) {
         numberOfCoffee = numberOfCoffee - 1;
-        display(numberOfCoffee);
+        displayQuantity(numberOfCoffee);
     }
     /**
 
      This method displays the given quantity value on the screen.
      */
-    private void display(int number) {
+    private void displayQuantity(int number) {
         TextView quantityTextView = (TextView) findViewById(
                 R.id.quantity_text_view);
         quantityTextView.setText("" + number);
@@ -54,10 +55,14 @@ public class MainActivity extends AppCompatActivity {
     /**
      * This method displays the given price on the screen.
      */
-    private void displayPrice(int number) {
+    private void displayPrice(String message) {
         TextView priceTextView = (TextView) findViewById(R.id.price_text_view);
-        priceTextView.setText(NumberFormat.getCurrencyInstance().format(number));
+        priceTextView.setText(message);
     }
 
-
+    private int calculatePrice() {
+        int price = 0;
+        price = numberOfCoffee * 5;
+        return price;
+    }
 }
