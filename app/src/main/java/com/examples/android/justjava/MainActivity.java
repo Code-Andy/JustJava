@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
 
     int numberOfCoffee = 0;
     public void submitOrder(View view) {
-        String priceMessage = "That Is $" + calculatePrice();
+        String priceMessage = "That Is $" + calculatePrice(numberOfCoffee, 2);
         priceMessage = priceMessage + " Thank You!";
         displayPrice(priceMessage);
 
@@ -60,9 +60,8 @@ public class MainActivity extends AppCompatActivity {
         priceTextView.setText(message);
     }
 
-    private int calculatePrice() {
-        int price = 0;
-        price = numberOfCoffee * 5;
+    private int calculatePrice(int number, int cupPrice) {
+        int price = number * cupPrice;
         return price;
     }
 }
