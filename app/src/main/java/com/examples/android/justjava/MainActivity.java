@@ -26,9 +26,8 @@ public class MainActivity extends AppCompatActivity {
 
     int numberOfCoffee = 0;
     public void submitOrder(View view) {
-        String priceMessage = "That Is $" + calculatePrice(numberOfCoffee, 2);
-        priceMessage = priceMessage + " Thank You!";
-        displayPrice(priceMessage);
+        String msg = createOrderSummary();
+        displayPrice(msg);
 
     }
 
@@ -63,5 +62,13 @@ public class MainActivity extends AppCompatActivity {
     private int calculatePrice(int number, int cupPrice) {
         int price = number * cupPrice;
         return price;
+    }
+
+    private String createOrderSummary(){
+        String summaryOrder = "Name: CoffeeAddict\n";
+        summaryOrder += "Quantity: " + numberOfCoffee + "\n";
+        summaryOrder += "Total: " + calculatePrice(numberOfCoffee, 2) + "\n";
+        summaryOrder += "Thank you!";
+        return summaryOrder;
     }
 }
