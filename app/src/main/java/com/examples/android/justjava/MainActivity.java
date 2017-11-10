@@ -25,11 +25,19 @@ public class MainActivity extends AppCompatActivity {
      */
 
     int numberOfCoffee = 0;
+
+    boolean WhippedCream = false;
+
     public void submitOrder(View view) {
         String msg = createOrderSummary();
         displaySummary(msg);
 
     }
+
+    public void hasWhippedCream(View view){
+
+    }
+
 
     public void increment(View view) {
         numberOfCoffee = numberOfCoffee + 1;
