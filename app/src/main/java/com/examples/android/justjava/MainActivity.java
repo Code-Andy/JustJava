@@ -27,10 +27,20 @@ public class MainActivity extends AppCompatActivity {
 
     int numberOfCoffee = 0;
 
+    boolean checked = false;
+
     public void hasChecked(View view) {
-
-
+        final CheckBox checkBox = (CheckBox) findViewById(R.id.whippedCream);
+        if (checkBox.isChecked()) {
+            checkBox.setChecked(true);
+            checked = true;
+        }
+        else{
+            checked = false;
     }
+}
+
+
 
 
     public void submitOrder(View view) {
