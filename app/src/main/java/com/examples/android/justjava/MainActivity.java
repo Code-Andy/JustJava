@@ -27,11 +27,17 @@ public class MainActivity extends AppCompatActivity {
 
     int numberOfCoffee = 0;
 
+    public void hasChecked(View view) {
+
+
+    }
+
+
     public void submitOrder(View view) {
         CheckBox whippedCreamCheckBox = (CheckBox) findViewById(R.id.whippedCream);
         boolean hasWhippedCream = whippedCreamCheckBox.isChecked();
         Log.v ("MainActivity", "Has whipped cream: " + hasWhippedCream);
-        String msg = createOrderSummary(hasWhippedCream);
+        String msg = createOrderSummary();
         displaySummary(msg);
 
     }
@@ -69,13 +75,8 @@ public class MainActivity extends AppCompatActivity {
         return price;
     }
 
-    private String createOrderSummary(boolean hasWhippedCream){
-        boolean x = hasWhippedCream;
-        x = false;
+    private String createOrderSummary(){
         String summaryOrder = "Name: CoffeeAddict\n";
-        if (x = true) {
-            summaryOrder += "+Whipped Cream" + "\n";
-        }
         summaryOrder += "Quantity: " + numberOfCoffee + "\n";
         summaryOrder += "Total: " + calculatePrice(numberOfCoffee, 2) + "\n";
         summaryOrder += "Thank you!";
