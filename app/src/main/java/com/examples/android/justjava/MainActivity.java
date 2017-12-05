@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
     private String createOrderSummary(boolean checked){
         String summaryOrder = "Name: CoffeeAddict\n";
         if(checked){
-            summaryOrder += "Whipped cream" + "\n";
+            summaryOrder += "Add Whipped Cream" + "\n";
         }
         summaryOrder += "Quantity: " + numberOfCoffee + "\n";
         summaryOrder += "Total: " + calculatePrice(numberOfCoffee, 2) + "\n";
