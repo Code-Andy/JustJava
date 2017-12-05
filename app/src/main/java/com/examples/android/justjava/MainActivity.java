@@ -2,7 +2,6 @@ package com.examples.android.justjava;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.TextView;
@@ -30,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
     boolean checked = false;
 
     public void hasChecked(View view) {
-        final CheckBox checkBox = (CheckBox) findViewById(R.id.whippedCream);
+        CheckBox checkBox = (CheckBox) findViewById(R.id.whippedCream);
         if (checkBox.isChecked()) {
             checkBox.setChecked(true);
             checked = true;
@@ -40,14 +39,8 @@ public class MainActivity extends AppCompatActivity {
     }
 }
 
-
-
-
     public void submitOrder(View view) {
-        CheckBox whippedCreamCheckBox = (CheckBox) findViewById(R.id.whippedCream);
-        boolean hasWhippedCream = whippedCreamCheckBox.isChecked();
-        Log.v ("MainActivity", "Has whipped cream: " + hasWhippedCream);
-        String msg = createOrderSummary();
+        String msg = createOrderSummary(checked);
         displaySummary(msg);
 
     }
@@ -85,8 +78,11 @@ public class MainActivity extends AppCompatActivity {
         return price;
     }
 
-    private String createOrderSummary(){
+    private String createOrderSummary(boolean checked){
         String summaryOrder = "Name: CoffeeAddict\n";
+        if(checked){
+            summaryOrder += "Whipped cream" + "\n";
+        }
         summaryOrder += "Quantity: " + numberOfCoffee + "\n";
         summaryOrder += "Total: " + calculatePrice(numberOfCoffee, 2) + "\n";
         summaryOrder += "Thank you!";
