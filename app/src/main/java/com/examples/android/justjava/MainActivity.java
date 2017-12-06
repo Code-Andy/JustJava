@@ -27,16 +27,29 @@ public class MainActivity extends AppCompatActivity {
     int numberOfCoffee = 0;
 
     boolean checked = false;
+    boolean checked1 = false;
 
     public void hasChecked(View view) {
-        CheckBox checkBox = (CheckBox) findViewById(R.id.whippedCream);
-        if (checkBox.isChecked()) {
-            checkBox.setChecked(true);
+        CheckBox cream = (CheckBox) findViewById(R.id.whippedCream);
+        CheckBox chocolate = (CheckBox) findViewById(R.id.chocolate);
+        if (cream.isChecked()){
+            cream.setChecked(true);
             checked = true;
         }
+
         else{
             checked = false;
-    }
+        }
+
+        if (chocolate.isChecked()){
+            chocolate.setChecked(true);
+            checked1 = true;
+        }
+
+        else{
+            checked1 = false;
+        }
+
 }
 
     public void submitOrder(View view) {
@@ -82,6 +95,9 @@ public class MainActivity extends AppCompatActivity {
         String summaryOrder = "Name: CoffeeAddict\n";
         if(checked){
             summaryOrder += "Add Whipped Cream" + "\n";
+        }
+        if(checked1){
+            summaryOrder += "Add Chocolate" + "\n";
         }
         summaryOrder += "Quantity: " + numberOfCoffee + "\n";
         summaryOrder += "Total: " + calculatePrice(numberOfCoffee, 2) + "\n";
