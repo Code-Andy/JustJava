@@ -1,9 +1,12 @@
 package com.examples.android.justjava;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.TextView;
 
 
@@ -25,15 +28,19 @@ public class MainActivity extends AppCompatActivity {
      */
 
     int numberOfCoffee = 0;
+    int cupprice = 2;
 
     boolean checked = false;
     boolean checked1 = false;
 
+
     public void hasChecked(View view) {
         CheckBox cream = (CheckBox) findViewById(R.id.whippedCream);
         CheckBox chocolate = (CheckBox) findViewById(R.id.chocolate);
+
         if (cream.isChecked()){
             cream.setChecked(true);
+            cupprice = 3;
             checked = true;
         }
 
@@ -43,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (chocolate.isChecked()){
             chocolate.setChecked(true);
+            cupprice = 4;
             checked1 = true;
         }
 
@@ -50,21 +58,44 @@ public class MainActivity extends AppCompatActivity {
             checked1 = false;
         }
 
+        if (cream.isChecked() && chocolate.isChecked()){
+            cupprice = 5;
+        }
+
+        if (!checked && !checked1){
+            cupprice = 2;
+        }
+
 }
 
     public void submitOrder(View view) {
-        String msg = createOrderSummary(checked);
+        EditText name = (EditText) findViewById(R.id.name);
+        String Name = name.getText().toString();
+        String msg = createOrderSummary(Name);
         displaySummary(msg);
+        Intent intent = new Intent(Intent.ACTION_SENDTO);
+        intent.setData(Uri.parse("mailto:")); // only email apps should handle this
+        intent.putExtra(Intent.EXTRA_EMAIL, "zhangandy915@gmail.com");
+        intent.putExtra(Intent.EXTRA_SUBJECT, "Order for Imacdonalds");
+        intent.putExtra(Intent.EXTRA_TEXT, msg);
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivity(intent);
+        }
 
     }
 
     public void increment(View view) {
-        numberOfCoffee = numberOfCoffee + 1;
+        if (numberOfCoffee == 101){
+            return;
+        }
         displayQuantity(numberOfCoffee);
-
-}
+        numberOfCoffee = numberOfCoffee + 1;
+    }
 
     public void decrement(View view) {
+        if (numberOfCoffee == 0){
+            return;
+        }
         numberOfCoffee = numberOfCoffee - 1;
         displayQuantity(numberOfCoffee);
     }
@@ -91,8 +122,8 @@ public class MainActivity extends AppCompatActivity {
         return price;
     }
 
-    private String createOrderSummary(boolean checked){
-        String summaryOrder = "Name: CoffeeAddict\n";
+    private String createOrderSummary(String person){
+        String summaryOrder = "Name: " + person + "\n";
         if(checked){
             summaryOrder += "Add Whipped Cream" + "\n";
         }
@@ -100,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
             summaryOrder += "Add Chocolate" + "\n";
         }
         summaryOrder += "Quantity: " + numberOfCoffee + "\n";
-        summaryOrder += "Total: " + calculatePrice(numberOfCoffee, 2) + "\n";
+        summaryOrder += "Total: " + "$" + calculatePrice(numberOfCoffee, cupprice) + "\n";
         summaryOrder += "Thank you!";
         return summaryOrder;
     }
